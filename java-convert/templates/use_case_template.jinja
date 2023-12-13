@@ -1,0 +1,9 @@
+package {{ package_name.replace('services', 'data.contracts') }}.{{ class_name }};
+
+{% for import in imports %}import {{ import }};
+{% endfor %}
+
+public interface {{ use_case_name }} {
+
+{{ method_code }}
+}

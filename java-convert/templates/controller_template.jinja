@@ -1,0 +1,25 @@
+package {{ package_name.replace('controller', 'presentaion.controller') }}.{{ class_name }};
+
+import org.springframework.stereotype.Service;
+import {{ package_name.replace('controller', 'data.contracts') }}.{{ class_name }}.{{ controller_name.replace('Controller', 'UseCase') }};
+{% if acitive_lombook %}import lombok.RequiredArgsConstructor;{% endif %}
+
+{% for import in imports %}import {{ import }};
+{% endfor %}
+
+
+{% if acitive_lombook %}@RequiredArgsConstructor{% endif %}
+public class {{ controller_name }} {
+
+    {% for field_declaration in fields %}{{ field_declaration }}
+    {% endfor %}
+
+{% if not acitive_lombook %}
+    public {{ controller_name }}({% for dependency in dependencies %}{{ dependency.type }} {{ dependency.name }}{% if not loop.last %}, {% endif %}{% endfor %}) {
+    {% for dependency in dependencies %}this.{{ dependency.name }} = {{ dependency.name }};
+    {% endfor %}
+    }
+{% endif %}
+
+{{ method_code }}
+}
